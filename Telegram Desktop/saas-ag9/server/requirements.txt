@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+google-auth
+requests
+python-multipart
+pydantic
+PyJWT
+prometheus_client
+motor
+stripe

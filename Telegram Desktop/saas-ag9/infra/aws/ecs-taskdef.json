@@ -1,0 +1,38 @@
+{
+  "family": "enterpriseai-app",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "512",
+  "memory": "1024",
+  "executionRoleArn": "${EXECUTION_ROLE_ARN}",
+  "taskRoleArn": "${TASK_ROLE_ARN}",
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "${ECR_REPOSITORY}:latest",
+      "portMappings": [
+        { "containerPort": 8000, "protocol": "tcp" }
+      ],
+      "essential": true,
+      "environment": [
+        { "name": "PORT", "value": "8000" },
+        { "name": "PUBLIC_APP_DOMAIN", "value": "${PUBLIC_APP_DOMAIN}" },
+        { "name": "STRIPE_SECRET_KEY", "value": "${STRIPE_SECRET_KEY}" },
+        { "name": "STRIPE_PRICE_STARTUP", "value": "${STRIPE_PRICE_STARTUP}" },
+        { "name": "STRIPE_PRICE_GROWTH", "value": "${STRIPE_PRICE_GROWTH}" },
+        { "name": "STRIPE_PRICE_ENTERPRISE", "value": "${STRIPE_PRICE_ENTERPRISE}" },
+        { "name": "ALLOWED_ORIGINS", "value": "${ALLOWED_ORIGINS}" },
+        { "name": "MONGO_URI", "value": "${MONGO_URI}" },
+        { "name": "MONGO_DB", "value": "${MONGO_DB}" }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/enterpriseai-app",
+          "awslogs-region": "${AWS_REGION}",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ]
+}

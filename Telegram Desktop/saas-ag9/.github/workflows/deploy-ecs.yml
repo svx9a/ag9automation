@@ -1,0 +1,73 @@
+name: deploy-ecs
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    env:
+      AWS_REGION: ${{ secrets.AWS_REGION }}
+      ECR_REPOSITORY: ${{ secrets.ECR_REPOSITORY }}
+      ECS_CLUSTER: ${{ secrets.ECS_CLUSTER }}
+      ECS_SERVICE: ${{ secrets.ECS_SERVICE }}
+      PUBLIC_APP_DOMAIN: ${{ secrets.PUBLIC_APP_DOMAIN }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      STRIPE_PRICE_STARTUP: ${{ secrets.STRIPE_PRICE_STARTUP }}
+      STRIPE_PRICE_GROWTH: ${{ secrets.STRIPE_PRICE_GROWTH }}
+      STRIPE_PRICE_ENTERPRISE: ${{ secrets.STRIPE_PRICE_ENTERPRISE }}
+      ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      MONGO_DB: ${{ secrets.MONGO_DB }}
+      GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+      SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_OIDC_ROLE }}
+          aws-region: ${{ env.AWS_REGION }}
+      - uses: aws-actions/amazon-ecr-login@v2
+      - name: Build frontend
+        run: |
+          npm ci
+          npm run build
+      - name: Build image
+        run: |
+          IMAGE_TAG=$(date +%Y%m%d%H%M%S)
+          echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+          docker build --build-arg PORT=8000 -t $ECR_REPOSITORY:$IMAGE_TAG .
+      - name: Push image
+        run: |
+          docker push $ECR_REPOSITORY:${{ env.IMAGE_TAG }}
+      - name: Render task definition
+        id: render
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: infra/aws/ecs-taskdef.json
+          container-name: app
+          image: ${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}
+          environment-variables: |
+            PORT=8000
+            PUBLIC_APP_DOMAIN=${{ env.PUBLIC_APP_DOMAIN }}
+            STRIPE_SECRET_KEY=${{ env.STRIPE_SECRET_KEY }}
+            STRIPE_PRICE_STARTUP=${{ env.STRIPE_PRICE_STARTUP }}
+            STRIPE_PRICE_GROWTH=${{ env.STRIPE_PRICE_GROWTH }}
+            STRIPE_PRICE_ENTERPRISE=${{ env.STRIPE_PRICE_ENTERPRISE }}
+            ALLOWED_ORIGINS=${{ env.ALLOWED_ORIGINS }}
+            MONGO_URI=${{ env.MONGO_URI }}
+            MONGO_DB=${{ env.MONGO_DB }}
+            GOOGLE_OAUTH_CLIENT_ID=${{ env.GOOGLE_OAUTH_CLIENT_ID }}
+            SUPABASE_JWT_SECRET=${{ env.SUPABASE_JWT_SECRET }}
+      - name: Deploy ECS service
+        uses: aws-actions/amazon-ecs-deploy@v1
+        with:
+          cluster: ${{ env.ECS_CLUSTER }}
+          service: ${{ env.ECS_SERVICE }}
+          task-definition: ${{ steps.render.outputs.task-definition }}
+          wait-for-service-stability: true
