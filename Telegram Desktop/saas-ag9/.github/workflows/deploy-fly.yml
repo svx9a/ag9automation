@@ -1,0 +1,50 @@
+name: deploy-fly
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      PUBLIC_APP_DOMAIN: ${{ secrets.PUBLIC_APP_DOMAIN }}
+      ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
+      STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+      STRIPE_PRICE_STARTUP: ${{ secrets.STRIPE_PRICE_STARTUP }}
+      STRIPE_PRICE_GROWTH: ${{ secrets.STRIPE_PRICE_GROWTH }}
+      STRIPE_PRICE_ENTERPRISE: ${{ secrets.STRIPE_PRICE_ENTERPRISE }}
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
+      GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
+      SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
+      MONGO_URI: ${{ secrets.MONGO_URI }}
+      MONGO_DB: ${{ secrets.MONGO_DB }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@v1
+      - name: Build frontend
+        run: |
+          npm ci
+          npm run build
+      - name: Deploy to Fly.io
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          flyctl deploy --remote-only \
+            --dockerfile Dockerfile \
+            --env PORT=8000 \
+            --env PUBLIC_APP_DOMAIN="${PUBLIC_APP_DOMAIN}" \
+            --env ALLOWED_ORIGINS="${ALLOWED_ORIGINS}" \
+            --env STRIPE_SECRET_KEY="${STRIPE_SECRET_KEY}" \
+            --env STRIPE_PRICE_STARTUP="${STRIPE_PRICE_STARTUP}" \
+            --env STRIPE_PRICE_GROWTH="${STRIPE_PRICE_GROWTH}" \
+            --env STRIPE_PRICE_ENTERPRISE="${STRIPE_PRICE_ENTERPRISE}" \
+            --env STRIPE_WEBHOOK_SECRET="${STRIPE_WEBHOOK_SECRET}" \
+            --env GOOGLE_OAUTH_CLIENT_ID="${GOOGLE_OAUTH_CLIENT_ID}" \
+            --env SUPABASE_JWT_SECRET="${SUPABASE_JWT_SECRET}" \
+            --env MONGO_URI="${MONGO_URI}" \
+            --env MONGO_DB="${MONGO_DB}"
