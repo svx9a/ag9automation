@@ -5,8 +5,17 @@ from fastapi import HTTPException, status
 import jwt
 
 
+def _env(name: str, default: str | None = None) -> str | None:
+    v = os.getenv(name)
+    if v is None:
+        return default
+    s = v.strip()
+    if s.startswith("${") and s.endswith("}"):
+        return default
+    return s or default
+
 def _get_supabase_jwt_secret() -> str:
-    secret = os.getenv("SUPABASE_JWT_SECRET")
+    secret = _env("SUPABASE_JWT_SECRET")
     if not secret:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

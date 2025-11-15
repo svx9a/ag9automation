@@ -59,13 +59,22 @@ try:
 except Exception:
     AGENT = None
 
+def _env(name: str, default: str | None = None) -> str | None:
+    v = os.getenv(name)
+    if v is None:
+        return default
+    s = v.strip()
+    if s.startswith("${") and s.endswith("}"):
+        return default
+    return s or default
+
 app = FastAPI(title="Automation Bridge", version="0.1.0")
 
 # HTTP Bearer for protected endpoints
 security = HTTPBearer(auto_error=True)
 
 # Restrict CORS for security; allow Azure site and localhost
-allowed_origins_env = os.getenv("ALLOWED_ORIGINS")
+allowed_origins_env = _env("ALLOWED_ORIGINS")
 if allowed_origins_env:
     allowed_origins = [o.strip() for o in allowed_origins_env.split(",") if o.strip()]
 else:
@@ -207,8 +216,8 @@ STATE: dict[str, object] = {
 def now_iso() -> str:
     return datetime.utcnow().isoformat(timespec="seconds") + "Z"
 
-MONGO_URI = os.getenv("MONGO_URI")
-MONGO_DB = os.getenv("MONGO_DB")
+MONGO_URI = _env("MONGO_URI")
+MONGO_DB = _env("MONGO_DB")
 mongo_client = None
 
 def get_db():
@@ -512,7 +521,7 @@ async def chat(payload: ChatPayload):
 @app.post("/auth/google")
 def auth_google(payload: GoogleAuthPayload):
     """Verify Google ID token directly via Google public keys."""
-    client_id = os.getenv("GOOGLE_OAUTH_CLIENT_ID")
+    client_id = _env("GOOGLE_OAUTH_CLIENT_ID")
     if not client_id:
         raise HTTPException(status_code=500, detail="Server missing GOOGLE_OAUTH_CLIENT_ID")
     try:
@@ -853,15 +862,15 @@ def billing_checkout(plan: str, credentials: HTTPAuthorizationCredentials = Depe
     _ = _claims(credentials)
     if _stripe is None:
         raise HTTPException(status_code=500, detail="stripe_unavailable")
-    key = os.getenv("STRIPE_SECRET_KEY")
+    key = _env("STRIPE_SECRET_KEY")
     domain = os.getenv("PUBLIC_APP_DOMAIN")
     if not key or not domain:
         raise HTTPException(status_code=500, detail="stripe_not_configured")
     _stripe.api_key = key
     price_map = {
-        "startup": os.getenv("STRIPE_PRICE_STARTUP"),
-        "growth": os.getenv("STRIPE_PRICE_GROWTH"),
-        "enterprise": os.getenv("STRIPE_PRICE_ENTERPRISE"),
+        "startup": _env("STRIPE_PRICE_STARTUP"),
+        "growth": _env("STRIPE_PRICE_GROWTH"),
+        "enterprise": _env("STRIPE_PRICE_ENTERPRISE"),
     }
     price_id = price_map.get(plan.lower())
     if not price_id:
@@ -881,7 +890,7 @@ def billing_checkout(plan: str, credentials: HTTPAuthorizationCredentials = Depe
 async def billing_webhook(request: Request):
     if _stripe is None:
         raise HTTPException(status_code=500, detail="stripe_unavailable")
-    key = os.getenv("STRIPE_WEBHOOK_SECRET")
+    key = _env("STRIPE_WEBHOOK_SECRET")
     payload = await request.body()
     sig = request.headers.get("Stripe-Signature")
     event = None
