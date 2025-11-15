@@ -1,0 +1,11 @@
+node_modules
+book
+.git
+.gitignore
+.vscode
+backup-*.zip
+deploy*.zip
+quarantine
+dist/*.map
+*.log
+Dockerfile*

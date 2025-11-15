@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubber Soul - Brand DNA Palettes</title>
+    <!-- Import Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Import Google Fonts for the specific brand vibes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Bebas+Neue&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        // Custom Tailwind config to add the brand fonts
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'sans': ['Inter', 'sans-serif'],
+                        'bebas': ['"Bebas Neue"', 'sans-serif'], // For Sea and Sand
+                        'oswald': ['Oswald', 'sans-serif'],     // For Street
+                        'poppins': ['Poppins', 'sans-serif']     // For Gummy Tech
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Set the core brand background color */
+        body {
+            background-color: #1E1E1E;
+        }
+        /* Style for bilingual color names */
+        .bilingual-name {
+            font-size: 0.8rem;
+            color: #71717a; /* zinc-500 */
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-200 p-8 md:p-12">
+
+    <!-- Page Header -->
+    <header class="text-center mb-12">
+        <h1 class="font-poppins font-bold text-4xl md:text-5xl text-white mb-4">
+            RUBBER SOUL
+        </h1>
+        <p class="text-xl text-gray-400">Brand DNA Visual Guide</p>
+    </header>
+
+    <!-- Master Brand DNA Section -->
+    <section class="mb-12">
+        <h2 class="font-oswald font-bold text-3xl text-white uppercase tracking-wider mb-6 pb-2 border-b-2 border-gray-700">Master Brand DNA</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+            
+            <!-- RBS Red -->
+            <div class="bg-zinc-800 p-4 rounded-lg shadow-lg">
+                <div class="h-32 rounded-md" style="background-color: #D8232A; border: 1px solid #FFFFFF44;"></div>
+                <div class="mt-4">
+                    <p class="font-semibold text-white text-lg">RBS Red</p>
+                    <p class="font-mono text-gray-400">#D8232A</p>
+                    <p class="text-sm text-gray-500 mt-1">Logo, Main CTA</p>
+                </div>
+            </div>
+            
+            <!-- Dark Charcoal -->
+            <div class="bg-zinc-800 p-4 rounded-lg shadow-lg">
+                <div class="h-32 rounded-md" style="background-color: #1E1E1E; border: 1px solid #FFFFFF44;"></div>
+                <div class="mt-4">
+                    <p class="font-semibold text-white text-lg">Dark Charcoal</p>
+                    <p class="font-mono text-gray-400">#1E1E1E</p>
+                    <p class="text-sm text-gray-500 mt-1">Page Background</p>
+                </div>
+            </div>
+
+            <!-- Pure White -->
+            <div class="bg-zinc-800 p-4 rounded-lg shadow-lg">
+                <div class="h-32 rounded-md" style="background-color: #FFFFFF; border: 1px solid #FFFFFF44;"></div>
+                <div class="mt-4">
+                    <p class="font-semibold text-white text-lg">Pure White</p>
+                    <p class="font-mono text-gray-400">#FFFFFF</p>
+                    <p class="text-sm text-gray-500 mt-1">Headlines, Text</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- DNA Pillar Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+        <!-- ===== PILLAR 1: SEA AND SAND ===== -->
+        <div class="bg-white text-zinc-900 rounded-xl shadow-2xl overflow-hidden">
+            <!-- Header -->
+            <div class="p-6 bg-zinc-50 border-b border-zinc-200">
+                <h3 class="font-bebas text-4xl tracking-widest text-zinc-800">Pillar 1: SEA AND SAND</h3>
+                <p class="font-sans text-gray-600"><b>Vibe:</b> The Eco-Conscious Traveler, Festival-Goer.</p>
+            </div>
+            
+            <!-- Palette -->
+            <div class="p-6">
+                <h4 class="font-oswald font-bold text-xl uppercase mb-4">Color Palette</h4>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Color Swatches -->
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #B95C3B;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Terracotta <span class="bilingual-name">/ ส้ม</span></p>
+                            <p class="font-mono text-sm text-gray-600">#B95C3B</p>
+                            <p class="text-xs text-gray-500 mt-1">CTA Button</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #D1A77A;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Warm Tan <span class="bilingual-name">/ เนื้อ</span></p>
+                            <p class="font-mono text-sm text-gray-600">#D1A77A</p>
+                            <p class="text-xs text-gray-500 mt-1">Accent</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #F27A40;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Bright Orange <span class="bilingual-name">/ ส้ม</span></p>
+                            <p class="font-mono text-sm text-gray-600">#F27A40</p>
+                            <p class="text-xs text-gray-500 mt-1">Product</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #5A6349;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Olive Green <span class="bilingual-name">/ ขี้ม้า</span></p>
+                            <p class="font-mono text-sm text-gray-600">#5A6349</p>
+                            <p class="text-xs text-gray-500 mt-1">Product</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-8">
+                    <h4 class="font-oswald font-bold text-xl uppercase mb-4">Buttons & CTA</h4>
+                    <div class="space-y-4">
+                        <button class="w-full font-bebas text-xl tracking-wider text-white px-6 py-3 rounded-lg shadow-md transition-all hover:shadow-lg" style="background-color: #B95C3B;">
+                            Primary CTA (Shop The Vibe)
+                        </button>
+                        <button class="w-full font-bebas text-xl tracking-wider px-6 py-3 rounded-lg border-2 transition-all" style="border-color: #B95C3B; color: #B95C3B;">
+                            Secondary CTA (Learn More)
+                        </button>
+                    </div>
+                    <p class="text-center font-sans text-gray-500 mt-4 text-sm"><b>Core Message:</b> "Eco-Balance"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PILLAR 2: STREET ===== -->
+        <div class="bg-white text-zinc-900 rounded-xl shadow-2xl overflow-hidden">
+            <!-- Header -->
+            <div class="p-6 bg-zinc-50 border-b border-zinc-200">
+                <h3 class="font-oswald font-bold text-4xl tracking-wide text-zinc-800">PILLAR 2: STREET</h3>
+                <p class="font-sans text-gray-600"><b>Vibe:</b> The Urban Dweller, The Minimalist.</p>
+            </div>
+            
+            <!-- Palette -->
+            <div class="p-6">
+                <h4 class="font-oswald font-bold text-xl uppercase mb-4">Color Palette</h4>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Color Swatches -->
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #2B2B2B;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Solid Black <span class="bilingual-name">/ ดำ</span></V>
+                            <p class="font-mono text-sm text-gray-600">#2B2B2B</p>
+                            <p class="text-xs text-gray-500 mt-1">CTA Button</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #4A4E54;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Dark Gray <span class="bilingual-name">/ เทาเข้ม</span></p>
+                            <p class="font-mono text-sm text-gray-600">#4A4E54</p>
+                            <p class="text-xs text-gray-500 mt-1">Product</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #C0A795;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Nude/Beige <span class="bilingual-name">/ เนื้อ</span></p>
+                            <p class="font-mono text-sm text-gray-600">#C0A795</p>
+                            <p class="text-xs text-gray-500 mt-1">Product</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #8A6F63;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Mocha Mousse <span class="bilingual-name">/ มอคค่ามูส</span></p>
+                            <p class="font-mono text-sm text-gray-600">#8A6F63</p>
+                            <p class="text-xs text-gray-500 mt-1">Product</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-8">
+                    <h4 class="font-oswald font-bold text-xl uppercase mb-4">Buttons & CTA</h4>
+                    <div class="space-y-4">
+                        <button class="w-full font-oswald text-lg font-medium text-white px-6 py-3 rounded-md shadow-md transition-all hover:shadow-lg" style="background-color: #2B2B2B;">
+                            Primary CTA (Shop The Street)
+                        </button>
+                        <button class="w-full font-oswald text-lg font-medium px-6 py-3 rounded-md border-2 transition-all" style="border-color: #2B2B2B; color: #2B2B2B;">
+                            Secondary CTA (Learn More)
+                        </button>
+                    </div>
+                    <p class="text-center font-sans text-gray-500 mt-4 text-sm"><b>Core Message:</b> "Compress Rubber"</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== PILLAR 3: GUMMY TECH ===== -->
+        <div class="bg-white text-zinc-900 rounded-xl shadow-2xl overflow-hidden">
+            <!-- Header -->
+            <div class="p-6 bg-zinc-50 border-b border-zinc-200">
+                <h3 class="font-poppins font-bold text-3xl text-zinc-800">Pillar 3: GUMMY TECH</h3>
+                <p class="font-sans text-gray-600"><b>Vibe:</b> Max Comfort, Professional, Fashion-Conscious.</p>
+            </div>
+            
+            <!-- Palette -->
+            <div class="p-6">
+                <h4 class="font-oswald font-bold text-xl uppercase mb-4">Color Palette</h4>
+                <div class="grid grid-cols-2 gap-4">
+                    <!-- Color Swatches -->
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #D8232A;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">RBS Red</V>
+                            <p class="font-mono text-sm text-gray-600">#D8232A</p>
+                            <p class="text-xs text-gray-500 mt-1">Main CTA</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #C7B9A9;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Sand Beige <span class="bilingual-name">/ เบจทราย</span></Player>
+                            <p class="font-mono text-sm text-gray-600">#C7B9A9</p>
+                            <p class="text-xs text-gray-500 mt-1">Neutral</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #E6C8C5;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Pastel Pink <span class="bilingual-name">/ ชมพูพาสเทล</span></p>
+                            <p class="font-mono text-sm text-gray-600">#E6C8C5</p>
+                            <p class="text-xs text-gray-500 mt-1">Pastel</p>
+                        </div>
+                    </div>
+                    <div class="overflow-hidden rounded-lg">
+                        <div class="h-20" style="background-color: #B09B93;"></div>
+                        <div class="p-3 bg-zinc-100">
+                            <p class="font-semibold">Pink-Gold <span class="bilingual-name">/ พิงค์โกลด์</span></p>
+                            <p class="font-mono text-sm text-gray-600">#B09B93</p>
+                            <p class="text-xs text-gray-500 mt-1">Metallic</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Buttons -->
+                <div class="mt-8">
+                    <h4 class="font-oswald font-bold text-xl uppercase mb-4">Buttons & CTA</h4>
+                    <div class="space-y-4">
+                        <button class="w-full font-poppins font-semibold text-lg text-white px-6 py-3 rounded-lg shadow-md transition-all hover:shadow-lg" style="background-color: #D8232A;">
+                            Primary CTA (Feel The Gummy)
+                        </button>
+                        <button class="w-full font-poppins font-semibold text-lg px-6 py-3 rounded-lg border-2 transition-all" style="border-color: #D8232A; color: #D8232A;">
+                            Secondary CTA (Learn More)
+                        </button>
+                    </div>
+                    <p class="text-center font-sans text-gray-500 mt-4 text-sm"><b>Core Message:</b> "Gummy Tech / Super Soft"</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

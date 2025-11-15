@@ -21,11 +21,13 @@ jobs:
       STRIPE_PRICE_STARTUP: ${{ secrets.STRIPE_PRICE_STARTUP }}
       STRIPE_PRICE_GROWTH: ${{ secrets.STRIPE_PRICE_GROWTH }}
       STRIPE_PRICE_ENTERPRISE: ${{ secrets.STRIPE_PRICE_ENTERPRISE }}
+      STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
       ALLOWED_ORIGINS: ${{ secrets.ALLOWED_ORIGINS }}
       MONGO_URI: ${{ secrets.MONGO_URI }}
       MONGO_DB: ${{ secrets.MONGO_DB }}
       GOOGLE_OAUTH_CLIENT_ID: ${{ secrets.GOOGLE_OAUTH_CLIENT_ID }}
       SUPABASE_JWT_SECRET: ${{ secrets.SUPABASE_JWT_SECRET }}
+      OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       EXECUTION_ROLE_ARN: ${{ secrets.EXECUTION_ROLE_ARN }}
       TASK_ROLE_ARN: ${{ secrets.TASK_ROLE_ARN }}
     steps:
@@ -63,6 +65,7 @@ jobs:
             PORT=8000
             PUBLIC_APP_DOMAIN=${{ env.PUBLIC_APP_DOMAIN }}
             STRIPE_SECRET_KEY=${{ env.STRIPE_SECRET_KEY }}
+            STRIPE_WEBHOOK_SECRET=${{ env.STRIPE_WEBHOOK_SECRET }}
             STRIPE_PRICE_STARTUP=${{ env.STRIPE_PRICE_STARTUP }}
             STRIPE_PRICE_GROWTH=${{ env.STRIPE_PRICE_GROWTH }}
             STRIPE_PRICE_ENTERPRISE=${{ env.STRIPE_PRICE_ENTERPRISE }}
@@ -71,6 +74,7 @@ jobs:
             MONGO_DB=${{ env.MONGO_DB }}
             GOOGLE_OAUTH_CLIENT_ID=${{ env.GOOGLE_OAUTH_CLIENT_ID }}
             SUPABASE_JWT_SECRET=${{ env.SUPABASE_JWT_SECRET }}
+            OPENAI_API_KEY=${{ env.OPENAI_API_KEY }}
       - name: Deploy ECS service
         uses: aws-actions/amazon-ecs-deploy@v1
         with:
